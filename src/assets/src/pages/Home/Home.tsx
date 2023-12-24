@@ -5,7 +5,9 @@ import { Button } from '../../components/Button/Button.tsx';
 
 export const Home = () => {
   const synth = window.speechSynthesis;
-  const [text, setText] = React.useState<string>('');
+
+  const [text, setText] = React.useState('');
+  const [speaking, setSpeaking] = React.useState(false);
 
   React.useEffect(() => {
     const loadVoices = () => {
@@ -27,16 +29,18 @@ export const Home = () => {
     let voices = synth.getVoices();
 
     if (voices.length !== 0) {
-      console.log('talk');
-
+      setSpeaking(true);
       let msg = new SpeechSynthesisUtterance();
-      msg.voice = voices[0];
+      msg.voice = voices[1];
       msg.rate = 1;
       msg.pitch = 1;
       msg.text = text;
       msg.lang = 'pt-BR';
+      msg.volume = 1;
 
       synth.speak(msg);
+
+      msg.addEventListener('end', () => setSpeaking(false));
     }
   }
 
@@ -44,6 +48,7 @@ export const Home = () => {
     <Container>
       <Input value={text} setValue={setText} />
       <Button onClick={talk} />
+      <p>{speaking ? 'Falando' : 'Sem fala'}</p>
     </Container>
   );
 };

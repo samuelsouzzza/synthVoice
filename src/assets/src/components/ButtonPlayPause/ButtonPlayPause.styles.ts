@@ -16,7 +16,4 @@ export const Container = styled.button`
   &:hover {
     border: 1px solid #fff;
   }
-  &:disabled {
-    filter: grayscale(1);
-  }
 `;

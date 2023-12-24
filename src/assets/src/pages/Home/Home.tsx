@@ -2,12 +2,14 @@ import React from 'react';
 import { Container } from './Home.styles.ts';
 import { Input } from '../../components/Input/Input.tsx';
 import { Button } from '../../components/Button/Button.tsx';
+import { ButtonPlayPause } from '../../components/ButtonPlayPause/ButtonPlayPause.tsx';
 
 export const Home = () => {
   const synth = window.speechSynthesis;
 
   const [text, setText] = React.useState('');
   const [speaking, setSpeaking] = React.useState(false);
+  const [paused, setPaused] = React.useState(false);
 
   React.useEffect(() => {
     const loadVoices = () => {
@@ -38,17 +40,35 @@ export const Home = () => {
       msg.lang = 'pt-BR';
       msg.volume = 1;
 
-      synth.speak(msg);
-
       msg.addEventListener('end', () => setSpeaking(false));
+
+      synth.speak(msg);
+    }
+  }
+
+  function toggleTalk() {
+    setSpeaking(!speaking);
+    setPaused(!paused);
+
+    synth.pause();
+
+    if (synth.paused) {
+      synth.resume();
+      setSpeaking(!speaking);
     }
   }
 
   return (
     <Container>
       <Input value={text} setValue={setText} />
-      <Button onClick={talk} />
-      <p>{speaking ? 'Falando' : 'Sem fala'}</p>
+      {!speaking ? <Button onClick={talk} /> : <Button disabled />}
+
+      <ButtonPlayPause
+        onClick={toggleTalk}
+        status={paused ? 'play' : 'pause'}
+      />
+
+      <p>{synth.pending ? 'Falando' : 'Sem fala'}</p>
     </Container>
   );
 };

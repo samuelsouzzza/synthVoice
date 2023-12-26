@@ -70,7 +70,7 @@ export const Home = () => {
   return (
     <Container>
       <Box>
-        <SoundWave />
+        {speaking && !paused && <SoundWave />}
         <Input value={text} setValue={setText} />
         <BoxControls>
           {!speaking && !paused ? (
@@ -102,7 +102,6 @@ export const Home = () => {
             <ButtonPlayPause disabled status='play' />
           )}
         </BoxControls>
-        <p>{speaking ? 'Falando' : 'Sem fala'}</p>
       </Box>
     </Container>
   );

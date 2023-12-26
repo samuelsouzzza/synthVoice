@@ -5,4 +5,16 @@
   box-sizing: border-box;
   font-family: 'Roboto', sans-serif;
   accent-color: #4682b4;
+  transition: 0.3s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

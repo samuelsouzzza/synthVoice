@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 
 export const Container = styled.section`
+  background-image: url('../../../public/Polygon_Luminary.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
   width: 100%;
   height: 100vh;
   background-color: #e9e9e9;
@@ -13,6 +16,10 @@ export const Container = styled.section`
 
 export const Box = styled.div`
   width: 50%;
+  background-color: #ffffff22;
+  backdrop-filter: blur(5px);
+  padding: 1%;
+  border-radius: 5px;
 `;
 
 export const BoxControls = styled.div`

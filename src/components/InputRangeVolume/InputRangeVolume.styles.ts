@@ -4,6 +4,7 @@ export const Container = styled.label`
   user-select: none;
   width: 30%;
   margin: 1%;
+  color: #fff;
   div {
     display: flex;
     justify-content: space-between;

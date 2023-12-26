@@ -10,3 +10,15 @@ export const Container = styled.section`
   flex-direction: column;
   gap: 3% 0;
 `;
+
+export const Box = styled.div`
+  width: 50%;
+`;
+
+export const BoxControls = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 2% 0;
+  width: 100%;
+`;

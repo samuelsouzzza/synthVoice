@@ -1,7 +1,8 @@
 import React from 'react';
-import { Container } from './Home.styles.ts';
+import { Container, Box, BoxControls } from './Home.styles.ts';
 import { Input } from '../../components/Input/Input.tsx';
 import { ButtonPlayPause } from '../../components/ButtonPlayPause/ButtonPlayPause.tsx';
+import { InputRangeVolume } from '../../components/InputRangeVolume/InputRangeVolume.tsx';
 
 export const Home = () => {
   const synth = window.speechSynthesis;
@@ -9,6 +10,7 @@ export const Home = () => {
   const [text, setText] = React.useState('');
   const [speaking, setSpeaking] = React.useState(false);
   const [paused, setPaused] = React.useState(false);
+  const [volume, setVolume] = React.useState(50);
 
   React.useEffect(() => {
     const loadVoices = () => {
@@ -38,7 +40,7 @@ export const Home = () => {
       msg.pitch = 1;
       msg.text = text;
       msg.lang = 'pt-BR';
-      msg.volume = 1;
+      msg.volume = volume / 100;
 
       msg.addEventListener('end', () => setSpeaking(false));
 
@@ -62,14 +64,25 @@ export const Home = () => {
 
   return (
     <Container>
-      <Input value={text} setValue={setText} />
-
-      <ButtonPlayPause
-        onClick={toggleTalk}
-        status={!speaking ? 'play' : 'pause'}
-      />
-
-      <p>{speaking ? 'Falando' : 'Sem fala'}</p>
+      <Box>
+        <Input value={text} setValue={setText} />
+        <BoxControls>
+          {!speaking && !paused ? (
+            <InputRangeVolume value={volume} setValue={setVolume} />
+          ) : (
+            <InputRangeVolume value={volume} setValue={setVolume} disabled />
+          )}
+          {text.length !== 0 ? (
+            <ButtonPlayPause
+              onClick={toggleTalk}
+              status={!speaking ? 'play' : 'pause'}
+            />
+          ) : (
+            <ButtonPlayPause disabled status='play' />
+          )}
+        </BoxControls>
+        <p>{speaking ? 'Falando' : 'Sem fala'}</p>
+      </Box>
     </Container>
   );
 };

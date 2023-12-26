@@ -3,6 +3,7 @@ import { Container, Box, BoxControls } from './Home.styles.ts';
 import { Input } from '../../components/Input/Input.tsx';
 import { ButtonPlayPause } from '../../components/ButtonPlayPause/ButtonPlayPause.tsx';
 import { InputRangeVolume } from '../../components/InputRangeVolume/InputRangeVolume.tsx';
+import { SelectVoice } from '../../components/SelectVoice/SelectVoice.tsx';
 
 export const Home = () => {
   const synth = window.speechSynthesis;
@@ -11,6 +12,9 @@ export const Home = () => {
   const [speaking, setSpeaking] = React.useState(false);
   const [paused, setPaused] = React.useState(false);
   const [volume, setVolume] = React.useState(50);
+
+  const myVoices = ['Homem', 'Mulher'];
+  const [voice, setVoice] = React.useState(myVoices[0]);
 
   React.useEffect(() => {
     const loadVoices = () => {
@@ -35,7 +39,7 @@ export const Home = () => {
       setSpeaking(true);
       setPaused(false);
       let msg = new SpeechSynthesisUtterance();
-      msg.voice = voices[1];
+      msg.voice = voices[myVoices.indexOf(voice)];
       msg.rate = 1;
       msg.pitch = 1;
       msg.text = text;
@@ -67,6 +71,21 @@ export const Home = () => {
       <Box>
         <Input value={text} setValue={setText} />
         <BoxControls>
+          {!speaking && !paused ? (
+            <SelectVoice
+              options={['Homem', 'Mulher']}
+              value={voice}
+              setValue={setVoice}
+            />
+          ) : (
+            <SelectVoice
+              options={['Homem', 'Mulher']}
+              value={voice}
+              setValue={setVoice}
+              disabled
+            />
+          )}
+
           {!speaking && !paused ? (
             <InputRangeVolume value={volume} setValue={setVolume} />
           ) : (

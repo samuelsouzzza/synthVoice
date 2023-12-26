@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import Img from '../../../public/Wave.svg';
 
 export const Container = styled.section`
   background-image: url('/Wave.svg');

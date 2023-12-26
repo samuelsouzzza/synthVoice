@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.section`
-  background-image: url('../../../public/Polygon_Luminary.svg');
+  background-image: url('/public/Polygon_Luminary.svg');
   background-size: cover;
   background-repeat: no-repeat;
   width: 100%;

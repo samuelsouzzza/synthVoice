@@ -1,5 +1,5 @@
 import React from 'react';
-import { Home } from './assets/src/pages/Home/Home';
+import { Home } from '../src/pages/Home/Home.tsx';
 
 export const App = () => {
   return <Home />;

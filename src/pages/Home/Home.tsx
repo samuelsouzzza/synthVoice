@@ -1,7 +1,6 @@
 import React from 'react';
 import { Container } from './Home.styles.ts';
 import { Input } from '../../components/Input/Input.tsx';
-import { Button } from '../../components/Button/Button.tsx';
 import { ButtonPlayPause } from '../../components/ButtonPlayPause/ButtonPlayPause.tsx';
 
 export const Home = () => {
@@ -32,6 +31,7 @@ export const Home = () => {
 
     if (voices.length !== 0) {
       setSpeaking(true);
+      setPaused(false);
       let msg = new SpeechSynthesisUtterance();
       msg.voice = voices[1];
       msg.rate = 1;
@@ -47,28 +47,29 @@ export const Home = () => {
   }
 
   function toggleTalk() {
-    setSpeaking(!speaking);
-    setPaused(!paused);
-
-    synth.pause();
-
-    if (synth.paused) {
+    if (!speaking && !paused) {
+      talk();
+    } else if (!speaking && paused) {
+      setSpeaking(true);
+      setPaused(false);
       synth.resume();
-      setSpeaking(!speaking);
+    } else {
+      setSpeaking(false);
+      setPaused(true);
+      synth.pause();
     }
   }
 
   return (
     <Container>
       <Input value={text} setValue={setText} />
-      {!speaking ? <Button onClick={talk} /> : <Button disabled />}
 
       <ButtonPlayPause
         onClick={toggleTalk}
-        status={paused ? 'play' : 'pause'}
+        status={!speaking ? 'play' : 'pause'}
       />
 
-      <p>{synth.pending ? 'Falando' : 'Sem fala'}</p>
+      <p>{speaking ? 'Falando' : 'Sem fala'}</p>
     </Container>
   );
 };

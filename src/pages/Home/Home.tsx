@@ -4,6 +4,7 @@ import { Input } from '../../components/Input/Input.tsx';
 import { ButtonPlayPause } from '../../components/ButtonPlayPause/ButtonPlayPause.tsx';
 import { InputRangeVolume } from '../../components/InputRangeVolume/InputRangeVolume.tsx';
 import { SelectVoice } from '../../components/SelectVoice/SelectVoice.tsx';
+import { SoundWave } from '../../components/SoundWave/SoundWave.tsx';
 
 export const Home = () => {
   const synth = window.speechSynthesis;
@@ -69,6 +70,7 @@ export const Home = () => {
   return (
     <Container>
       <Box>
+        <SoundWave />
         <Input value={text} setValue={setText} />
         <BoxControls>
           {!speaking && !paused ? (

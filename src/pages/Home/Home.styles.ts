@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.section`
-  background-image: url('/public/Wave.svg');
+  background-image: url('/public/Wave.png');
   background-size: cover;
   background-repeat: no-repeat;
   width: 100%;
